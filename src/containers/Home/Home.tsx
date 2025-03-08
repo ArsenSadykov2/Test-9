@@ -1,52 +1,23 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, {useEffect, useState} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../../components/UI/Modal/Modal.tsx";
 import FormItem from "../../components/FormItem/FormItem.tsx";
-import axiosApi from "../../axiosApi.ts";
-import { ItemForm, ItemFormMutation, TransactionAPI } from "../../types";
 import Items from "../../components/Items/Items.tsx";
 import ToolBar from "../../components/ToolBar/ToolBar.tsx";
 import Loader from "../../components/UI/Loader/Loader.tsx";
+import {AppDispatch, RootState} from "../../components/app/store.ts";
+import {clearEditingItem, deleteTransaction, fetchTransactions, saveTransaction, setEditingItem} from "./Slices.ts";
+import {ItemForm} from "../../types";
 
-interface HomeProps {
-    showModal: boolean;
-    onCloseModal: () => void;
-}
 
-const Home: React.FC<HomeProps> = () => {
-    const [items, setItems] = useState<ItemFormMutation[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [editingItem, setEditingItem] = useState<ItemFormMutation | null>(null);
+const Home: React.FC = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { items, loading, editingItem } = useSelector((state: RootState) => state.transactions);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const fetchDishes = useCallback(async () => {
-        try {
-            setLoading(true);
-            const response = await axiosApi<TransactionAPI | null>('/trackers.json');
-            const dishesListObject = response.data;
-
-            if (!dishesListObject) {
-                setItems([]);
-            } else {
-                const dishesListArray: ItemFormMutation[] = Object.keys(dishesListObject).map((dishId) => {
-                    const dish = dishesListObject[dishId];
-                    return {
-                        ...dish,
-                        id: dishId,
-                        category: dish.category || "defaultCategory",
-                    };
-                });
-                setItems(dishesListArray);
-            }
-        } catch (e) {
-            console.error(e);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
     useEffect(() => {
-        void fetchDishes();
-    }, [fetchDishes]);
+        dispatch(fetchTransactions());
+    }, [dispatch]);
 
     const total = items.reduce((acc, item) => {
         if (item.type === 'Income') {
@@ -58,41 +29,27 @@ const Home: React.FC<HomeProps> = () => {
     }, 0);
 
     const handleSaveTransaction = async (newTransaction: ItemForm) => {
-        try {
-            if (editingItem) {
-                await axiosApi.put(`/trackers/${editingItem.id}.json`, newTransaction);
-            } else {
-                await axiosApi.post('/trackers.json', newTransaction);
-            }
-            console.log("Transaction saved successfully");
-            handleCloseModal();
-            await fetchDishes();
-        } catch (error) {
-            console.error("Error saving transaction:", error);
-        }
+        await dispatch(saveTransaction(newTransaction));
+        setIsModalOpen(false);
+        dispatch(fetchTransactions());
     };
 
     const handleDelete = async (id: string) => {
-        try {
-            await axiosApi.delete(`/trackers/${id}.json`);
-            console.log("Transaction deleted successfully");
-            await fetchDishes();
-        } catch (error) {
-            console.error("Error deleting transaction:", error);
-        }
+        await dispatch(deleteTransaction(id));
+        dispatch(fetchTransactions());
     };
 
     const handleEdit = (id: string) => {
         const itemToEdit = items.find((item) => item.id === id);
         if (itemToEdit) {
-            setEditingItem(itemToEdit);
+            dispatch(setEditingItem(itemToEdit));
             setIsModalOpen(true);
         }
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
-        setEditingItem(null);
+        dispatch(clearEditingItem());
     };
 
     const handleAddClick = () => {
