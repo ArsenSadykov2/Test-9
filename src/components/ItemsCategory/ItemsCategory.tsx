@@ -38,23 +38,23 @@ const ItemsCategory: React.FC<ItemsProps> = ({ items, onDelete, onEdit }) => {
                                 <div className="d-flex justify-content-between align-items-center">
                                     <div>
                                         {item.type === "Expense" && (
-                                            <h6 className="card-subtitle text-danger">
+                                            <h6 className="card-subtitle text-danger mb-2">
                                                 <i className="bi bi-arrow-down-circle me-2"></i>
-                                                {item.type}
+                                                Type: {item.type}
                                             </h6>
                                         )}
                                         {item.type === "Income" && (
-                                            <h6 className="card-subtitle text-success">
+                                            <h6 className="card-subtitle text-success mb-2">
                                                 <i className="bi bi-arrow-up-circle me-2"></i>
-                                                {item.type}
+                                                Type:  {item.type}
                                             </h6>
                                         )}
                                         <p className="card-text mb-1">
-                                            Amount:{" "}
+                                            Цена:{" "}
                                             {item.type === "Expense" ? (
-                                                <span className="text-danger">{item.price} ₽</span>
+                                                <span className="text-danger">{item.price} Сом</span>
                                             ) : (
-                                                <span className="text-success">{item.price} ₽</span>
+                                                <span className="text-success">{item.price} Сом</span>
                                             )}
                                         </p>
                                         <p className="card-text">

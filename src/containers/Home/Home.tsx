@@ -102,9 +102,9 @@ const Home: React.FC<HomeProps> = () => {
     return (
         <>
             <ToolBar onAddClick={handleAddClick} />
-            <div>
-                <h4 className={`text-center ${total >= 0 ? 'text-success' : 'text-danger'}`}>
-                    Общий баланс: {total} ₽
+            <div className="container">
+                <h4 className={`text-start ${total >= 0 ? 'text-success' : 'text-danger'} m-3 w-50`}>
+                    Общий баланс: {total} Сом
                 </h4>
                 {loading ? <Loader/> : (
                     <Items items={items} onDelete={handleDelete} onEdit={handleEdit} />

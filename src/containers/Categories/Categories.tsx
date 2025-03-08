@@ -91,7 +91,7 @@ const Categories: React.FC = () => {
     return (
         <>
             <ToolBar onAddClick={handleAddClick} />
-            <div>
+            <div className="container">
                 {loading ? <Loader /> : (
                     <ItemsCategory items={items} onDelete={handleDelete} onEdit={handleEdit} />
                 )}

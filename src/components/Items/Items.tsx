@@ -28,13 +28,13 @@ const Items: React.FC<ItemsProps> = ({ items, onDelete, onEdit }) => {
                             )}
                             <p className="card-text">Category: <strong>{item.category} </strong></p>
                             {item.type === 'Expense' && (
-                                <p className="card-title text-danger">{item.price}</p>
+                                <p className="card-title text-danger">{item.price} Сом</p>
                             )}
                             {item.type === 'Income' && (
-                                    <p className="card-title text-success">{item.price}</p>
+                                    <p className="card-title text-success">{item.price} Сом</p>
                             )}
                             <span>{dayjs(createdAt).format('DD.MM.YYYY HH:mm:ss')}</span>
-                            <div className="d-flex gap-2">
+                            <div className="d-flex gap-2 mt-4">
                                 {location.pathname === "/" && (
                                     <>
                                         <button
