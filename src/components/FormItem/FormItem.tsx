@@ -33,7 +33,7 @@ const FormItem: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }
 
     return (
         <div className="container">
-            <form onSubmit={onSubmit} className="w-50 mx-auto">
+            <form onSubmit={onSubmit} className="w-75 mx-auto">
                 <div className="mb-3">
                     <label htmlFor="type" className="form-label">
                         Type:

@@ -5,6 +5,7 @@ import axiosApi from "../../axiosApi.ts";
 import { ItemForm, ItemFormMutation, TransactionAPI } from "../../types";
 import Items from "../../components/Items/Items.tsx";
 import ToolBar from "../../components/ToolBar/ToolBar.tsx";
+import Loader from "../../components/UI/Loader/Loader.tsx";
 
 interface HomeProps {
     showModal: boolean;
@@ -105,9 +106,7 @@ const Home: React.FC<HomeProps> = () => {
                 <h4 className={`text-center ${total >= 0 ? 'text-success' : 'text-danger'}`}>
                     Общий баланс: {total} ₽
                 </h4>
-                {loading ? (
-                    <p>Loading...</p>
-                ) : (
+                {loading ? <Loader/> : (
                     <Items items={items} onDelete={handleDelete} onEdit={handleEdit} />
                 )}
             </div>
