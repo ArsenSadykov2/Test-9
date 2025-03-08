@@ -1,12 +1,12 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { ItemForm} from "../../types";
+import { ItemForm } from "../../types";
 
 interface Props {
     onSubmitFormToAddTransaction: (newTransaction: ItemForm) => void;
-    editContact?: ItemForm;
+    editContact: ItemForm | null;
 }
 
-const DishForm: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }) => {
+const FormItem: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }) => {
     const [form, setForm] = useState<ItemForm>({
         type: '',
         category: '',
@@ -16,6 +16,8 @@ const DishForm: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }
     useEffect(() => {
         if (editContact) {
             setForm(editContact);
+        } else {
+            setForm({ type: '', category: '', price: 0 });
         }
     }, [editContact]);
 
@@ -98,4 +100,4 @@ const DishForm: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }
     );
 };
 
-export default DishForm;
+export default FormItem;

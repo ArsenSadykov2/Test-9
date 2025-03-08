@@ -27,7 +27,12 @@ const Items: React.FC<ItemsProps> = ({ items, onDelete, onEdit }) => {
                                 <h5 className="card-title text-success">{item.type}</h5>
                             )}
                             <p className="card-text">Category: <strong>{item.category} </strong></p>
-                            <p className="card-text">Цена: {item.price} ₽</p>
+                            {item.type === 'Expense' && (
+                                <p className="card-title text-danger">{item.price}</p>
+                            )}
+                            {item.type === 'Income' && (
+                                    <p className="card-title text-success">{item.price}</p>
+                            )}
                             <span>{dayjs(createdAt).format('DD.MM.YYYY HH:mm:ss')}</span>
                             <div className="d-flex gap-2">
                                 {location.pathname === "/" && (
