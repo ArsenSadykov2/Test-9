@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ItemForm} from "../../types";
 
 interface Props {
@@ -84,6 +84,14 @@ const DishForm: React.FC<Props> = ({ onSubmitFormToAddTransaction, editContact }
                         name="price"
                         onChange={inputChangeHandler}
                     />
+                </div>
+                <div className="mb-3">
+                    <button
+                        className="btn btn-primary me-5"
+                        type="submit"
+                    >
+                        Save
+                    </button>
                 </div>
             </form>
         </div>

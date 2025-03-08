@@ -2,6 +2,7 @@ export interface Transaction {
     date: string;
     name: string;
     price: number;
+    category: string;
 }
 
 export interface Item {
@@ -18,7 +19,8 @@ export interface ItemForm {
 }
 
 export interface ItemFormMutation {
-    type: string;
+    id: string;
+    type?: string;
     category: string;
     price: number;
     date?: string;
