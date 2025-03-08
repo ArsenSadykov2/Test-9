@@ -1,33 +1,33 @@
-import './App.css'
+import './App.css';
 import Layout from "./components/Layout/Layout.tsx";
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Categories from "./containers/Categories/Categories.tsx";
+import Home from "./containers/Home/Home.tsx";
+import { useState } from "react";
 
-function Home() {
-    return null;
-}
+const App = () => {
+    const [showModal, setShowModal] = useState(false);
 
-const App = () => (
-    <>
-        <Layout>
-            <Routes>
-                <Route
-                    path="/"
-                    element={(
-                        <Home/>)}
-                />
-                <Route
-                    path="/caterogies"
-                    element={(<Categories/>)}
-                />
-                <Route
-                    path="/add"
-                    element={(<Home/>)}
-                />
-            </Routes>
-        </Layout>
+    const openModal = () => {
+        setShowModal(true);
+    };
 
-    </>
-);
+    const closeModal = () => {
+        setShowModal(false);
+    };
 
-export default App
+    return (
+        <>
+            <Layout onAddClick={openModal}>
+                <Routes>
+                    <Route path="/" element={<Home showModal={showModal} onCloseModal={closeModal} />} />
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/add" element={<Home showModal={showModal} onCloseModal={closeModal} />} />
+                    <Route path="/add/:idTracker" element={<Home showModal={showModal} onCloseModal={closeModal} />} />
+                </Routes>
+            </Layout>
+        </>
+    );
+};
+
+export default App;

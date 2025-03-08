@@ -17,6 +17,15 @@ export interface ItemForm {
     price: number;
 }
 
+export interface ItemFormMutation {
+    type: string;
+    category: string;
+    price: number;
+    date?: string;
+    name?: string;
+}
+
+
 export interface TransactionAPI {
     [id: string]: Transaction;
 }

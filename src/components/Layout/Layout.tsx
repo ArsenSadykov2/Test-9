@@ -1,16 +1,17 @@
+import React from "react";
 import ToolBar from "../ToolBar/ToolBar.tsx";
 
+interface LayoutProps {
+    children: React.ReactNode;
+    onAddClick: () => void;
+}
 
-const Layout: React.FC<React.PropsWithChildren> = ({children}) => {
+const Layout: React.FC<LayoutProps> = ({ children, onAddClick }) => {
     return (
-        <>
-            <header className="mb-5">
-                <ToolBar/>
-            </header>
-            <main className="container">
-                {children}
-            </main>
-        </>
+        <div>
+            <ToolBar onAddClick={onAddClick} />
+            <main>{children}</main>
+        </div>
     );
 };
 

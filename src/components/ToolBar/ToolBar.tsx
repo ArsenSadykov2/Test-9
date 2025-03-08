@@ -1,7 +1,10 @@
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
+interface ToolBarProps {
+    onAddClick: () => void;
+}
 
-const ToolBarAdmin = () => {
+const ToolBar: React.FC<ToolBarProps> = ({ onAddClick }) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
             <div className="container">
@@ -12,7 +15,13 @@ const ToolBarAdmin = () => {
                             <NavLink to='/categories' className="nav-link">Categories</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to='/add' className="nav-link">Add</NavLink>
+                            <button
+                                className="nav-link btn btn-link"
+                                onClick={onAddClick}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer' }}
+                            >
+                                Add
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -21,4 +30,4 @@ const ToolBarAdmin = () => {
     );
 };
 
-export default ToolBarAdmin;
+export default ToolBar;
